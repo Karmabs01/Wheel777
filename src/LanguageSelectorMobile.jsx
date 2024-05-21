@@ -68,7 +68,7 @@ function LanguageSelector({ ipDataCode, source }) {
               <MenuItem
                 key={option.value}
                 value={option.value}>
-                <div class={option.value}></div>
+                <div className={option.value}></div>
                 {option.label}
               </MenuItem>
             ))}

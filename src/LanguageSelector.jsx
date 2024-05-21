@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
 import Box from '@mui/material/Box';
@@ -8,7 +8,6 @@ import Select from '@mui/material/Select';
 
 function LanguageSelector({ ipDataCode, source }) {
   const { i18n } = useTranslation();
-  const selectRef = useRef(null);
 
   useEffect(() => {
     // Set the default language based on user's IP when the component mounts
@@ -21,26 +20,6 @@ function LanguageSelector({ ipDataCode, source }) {
     const selectedLanguage = event.target.value;
     i18n.changeLanguage(selectedLanguage);
   };
-
-  const handleMouseDown = () => {
-    document.documentElement.classList.add("fixed-position");
-    console.log("handleMouseDown")
-
-  };
-
-  const handleClickOutside = (event) => {
-    if (selectRef.current && !selectRef.current.contains(event.target)) {
-      document.documentElement.classList.remove("fixed-position");
-      console.log("handleClickOutside")
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   const languageOptions = [
     { value: "all", label: "English" },
@@ -63,7 +42,7 @@ function LanguageSelector({ ipDataCode, source }) {
     { value: "sk", label: "Slovak" },
     { value: "tr", label: "Turkey" },
   ];
-  const languageOptions1043 = [{ value: "all", label: "🌍 English" }];
+  const languageOptions1043 = [{ value: "all", label: "English" }];
 
   return (
     <div>
@@ -81,15 +60,13 @@ function LanguageSelector({ ipDataCode, source }) {
           <Select
             id="languageSelect"
             value={i18n.language}
-            ref={selectRef}
-            onMouseDown={handleMouseDown}
             onChange={changeLanguage}
           >
             {languageOptions.map((option) => (
               <MenuItem
                 key={option.value}
                 value={option.value}>
-                <div class={option.value}></div>
+                <div className={option.value}></div>
                 {option.label}
               </MenuItem>
             ))}
